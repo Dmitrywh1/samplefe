@@ -21,10 +21,14 @@ build:
     tags:
         - docker
 
-deploy:
+deploy-dev:
     stage: deploy dev
+    variables:
+        ENV: DEV
     trigger:
       project: morgot/charts
       branch: main
       strategy: depend
     when: manual
+    only:
+        - tags
