@@ -31,8 +31,6 @@ deploy-dev:
         ENV: DEV
     dependencies:
         - build
-    before_script:
-        - source variables.env
     trigger:
       project: morgot/charts
       branch: main
