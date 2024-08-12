@@ -1,0 +1,29 @@
+stages:
+    - build
+    - deploy dev
+
+image: docker:latest
+
+build:
+    stage: build
+    services:
+        - docker:dind
+    variables:
+        DOCKER_HOST: tcp://docker:2375/
+        DOCKER_TLS_CERTDIR: ""
+    before_script:
+        - sleep 20
+        - echo -n "$CI_REGISTRY_PASSWORD" | docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    script:
+        - docker build . -t "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${CI_COMMIT_TAG}"
+        - docker push ${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${CI_COMMIT_TAG}
+    tags:
+        - docker
+
+deploy:
+    stage: deploy dev
+    trigger:
+      project: morgot/charts
+      branch: main
+      strategy: depend
+    when: manual
