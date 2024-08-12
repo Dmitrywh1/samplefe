@@ -33,8 +33,6 @@ deploy-dev:
         - build
     before_script:
         - source variables.env
-    script:
-        - echo "Deploying with TAG=${TAG}"
     trigger:
       project: morgot/charts
       branch: main
