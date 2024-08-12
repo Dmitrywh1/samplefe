@@ -21,7 +21,7 @@ build:
         - docker push "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
     artifacts:
         paths:
-        - tag
+          - tag
     tags:
         - docker
 
