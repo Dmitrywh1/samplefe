@@ -29,6 +29,12 @@ deploy-dev:
     stage: deploy dev
     variables:
         ENV: DEV
+    dependencies:
+        - build
+    before_script:
+        - source variables.env
+    script:
+        - echo "Deploying with TAG=${TAG}"
     trigger:
       project: morgot/charts
       branch: main
