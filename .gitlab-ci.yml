@@ -18,6 +18,10 @@ build:
         - TAG=${CI_COMMIT_TAG:-latest}
         - docker build . -t "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
         - docker push "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
+        - echo "TAG=${TAG}" >> variables.env
+    artifacts:
+        reports:
+            dotenv: variables.env
     tags:
         - docker
 
