@@ -14,6 +14,6 @@ deploy_dev:
         --atomic
         --values charts/$CI_PROJECT_NAME/dev.yaml
         --namespace $NAMESPACE
-        --set samplefe.image.tag=$TAG
+        --set samplefe.image.tag=1.0.4
   tags:
       - docker
