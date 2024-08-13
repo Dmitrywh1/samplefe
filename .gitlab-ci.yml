@@ -26,15 +26,6 @@ build:
     tags:
         - docker
 
-test:
-    stage: test
-    script:
-        - cat tag
-    needs:
-        - build
-    tags:
-        - docker
-
 deploy:
   stage: deploy
   variables:
