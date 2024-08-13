@@ -30,6 +30,8 @@ prod:
   rules:
     - if: '$CI_COMMIT_TAG'
       when: always
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
     - when: never
   variables:
     NAMESPACE: prod
@@ -42,5 +44,3 @@ prod:
       --values charts/$CI_PROJECT_NAME/$NAMESPACE-values.yaml
       --namespace $NAMESPACE
       --set samplefe.image.tag=$TAG
-  only:
-    - main
