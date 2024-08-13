@@ -21,7 +21,7 @@ dev:
       --atomic
       --values charts/$CI_PROJECT_NAME/$NAMESPACE-values.yaml
       --namespace $NAMESPACE
-      --set samplefe.image.tag=$tag
+      --set samplefe.image.tag=$TAG
   only:
     - develop
 
@@ -41,6 +41,6 @@ prod:
       --atomic
       --values charts/$CI_PROJECT_NAME/$NAMESPACE-values.yaml
       --namespace $NAMESPACE
-      --set samplefe.image.tag=$tag
+      --set samplefe.image.tag=$TAG
   only:
     - main
