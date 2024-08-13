@@ -17,27 +17,15 @@ build:
         - echo -n "$CI_REGISTRY_PASSWORD" | docker login --username $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
     script:
         - TAG=${CI_COMMIT_TAG:-latest}
-        # - docker build . -t "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
-        # - docker push "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
-        - echo $TAG > tag
-    # artifacts:
-    #     reports:
-    #         dotenv: .env
+        - docker build . -t "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
+        - docker push "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
+        # - echo $TAG > tag
     artifacts:
-        paths:
-        - tag
+        reports:
+            dotenv: .env
     tags:
         - docker
 
-# deploy-dev:
-#     stage: deploy dev
-#     variables:
-#         ENV: DEV
-#     trigger:
-#       project: morgot/charts
-#       branch: main
-#       strategy: depend
-    # when: manual
 include:
   - project: 'morgot/charts'
     file: '/samplefe/.gitlab-jobs/.gitlab-ci.yml'
