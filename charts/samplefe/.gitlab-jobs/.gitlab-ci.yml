@@ -11,18 +11,13 @@
 
 dev:
   stage: deploy
-  image:
-    name: alpine/helm
-    entrypoint: [""]
   variables:
     NAMESPACE: dev
   rules:
     - if: '$CI_COMMIT_BRANCH == "develop"'
       when: always
     - when: never
-  # extends: .prepare_helm_dependencies
-  before_script:
-    - export KUBECONFIG=$KUBECONFIG
+  extends: .prepare_helm_dependencies
   script:
     - helm upgrade $CI_PROJECT_NAME charts/$CI_PROJECT_NAME/
       --debug
@@ -31,23 +26,16 @@ dev:
       --values charts/$CI_PROJECT_NAME/$NAMESPACE-values.yaml
       --namespace $NAMESPACE
       --set samplefe.image.tag=$TAG
-  tags:
-    - docker
 
 prod:
   stage: deploy
-  image:
-    name: alpine/helm
-    entrypoint: [""]
   rules:
     - if: $CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
       when: manual
     - when: never
   variables:
     NAMESPACE: prod
-  # extends: .prepare_helm_dependencies
-  before_script:
-    - export KUBECONFIG=$KUBECONFIG
+  extends: .prepare_helm_dependencies
   script:
     - helm upgrade $CI_PROJECT_NAME charts/$CI_PROJECT_NAME/
       --debug
@@ -56,5 +44,3 @@ prod:
       --values charts/$CI_PROJECT_NAME/$NAMESPACE-values.yaml
       --namespace $NAMESPACE
       --set samplefe.image.tag=$TAG
-  tags:
-    - docker
