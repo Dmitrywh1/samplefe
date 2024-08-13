@@ -1,5 +1,7 @@
 deploy_dev:
   stage: deploy
+  variables:
+    NAMESPACE: dev
   image:
     name: alpine/helm
     entrypoint: [""]
@@ -10,8 +12,8 @@ deploy_dev:
         --debug
         --install
         --atomic
-        --values samplefe/dev.yaml
-        --namespace dev
+        --values charts/$CI_PROJECT_NAME/dev.yaml
+        --namespace $NAMESPACE
         --set samplefe.image.tag=$TAG
   tags:
       - docker
