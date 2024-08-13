@@ -32,6 +32,8 @@ test:
         - cat tag
     needs:
         - build
+    tags:
+        - docker
 
 deploy:
   stage: deploy
