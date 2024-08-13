@@ -25,8 +25,11 @@ build:
     tags:
         - docker
 
-include:
-  - project: 'morgot/charts'
-    file: '.gitlab-ci.yml'
-
+deploy:
+  stage: deploy
+  trigger:
+    project: morgot/charts
+    branch: main
+  dependencies:
+    - build
     
