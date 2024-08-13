@@ -16,11 +16,15 @@ build:
         - echo -n "$CI_REGISTRY_PASSWORD" | docker login --username $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
     script:
         - TAG=${CI_COMMIT_TAG:-latest}
-        - docker build . -t "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
-        - docker push "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
+        # - docker build . -t "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
+        # - docker push "${CI_REGISTRY}/${CI_REGISTRY_ID}/${CI_PROJECT_NAME}:${TAG}"
+        - echo $TAG > tag
+    # artifacts:
+    #     reports:
+    #         dotenv: .env
     artifacts:
-        reports:
-            dotenv: .env
+        paths:
+        - tag
     tags:
         - docker
 
@@ -32,4 +36,4 @@ deploy-dev:
       project: morgot/charts
       branch: main
       strategy: depend
-    when: manual
+    # when: manual
