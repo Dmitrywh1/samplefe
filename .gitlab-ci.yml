@@ -30,6 +30,6 @@ deploy:
   trigger:
     project: morgot/charts
     branch: main
-  dependencies:
+  needs:
     - build
     
