@@ -12,6 +12,8 @@ spec:
       labels:
         app: {{ .Values.samplefe.selector }}
     spec:
+      imagePullSecrets:
+      - name: yandex-registry
       containers:
       - name: samplefe
         image: "{{ .Values.samplefe.image.repository }}:{{ .Values.samplefe.image.tag }}"
