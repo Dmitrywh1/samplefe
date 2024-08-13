@@ -12,4 +12,4 @@ samplefe:
   ingress:
     tls:
       - hosts:
-          - 'samplefe.morgot.com'
+          - 'dev-samplefe.morgot.com'
