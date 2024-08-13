@@ -1,0 +1,20 @@
+deploy_dev:
+  stage: deploy to dev
+  rules:
+    - if: $ENV == 'DEV'
+  image:
+    name: alpine/helm
+    entrypoint: [""]
+  before_script:
+    - export KUBECONFIG=$KUBECONFIG
+    - echo $TAG
+  script:
+      - helm upgrade samplefe samplefe/
+        --debug
+        --install
+        --atomic
+        --values samplefe/dev.yaml
+        --namespace dev
+        --set samplefe.image.tag=$TAG
+  tags:
+      - docker

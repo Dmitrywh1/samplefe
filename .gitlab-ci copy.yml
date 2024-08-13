@@ -1,0 +1,5 @@
+stages:
+  - deploy to dev
+
+include:
+  - 'samplefe/.gitlab-jobs/.gitlab-ci.yml'

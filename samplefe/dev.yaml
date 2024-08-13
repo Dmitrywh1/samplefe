@@ -1,0 +1,15 @@
+samplefe:
+  image:
+    repository: cr.yandex/crpb6jem7gml01esa824/samplefe
+    tag: ""
+    container_port: 80
+  replicas: 1
+  service:
+    name: samplefe
+    targetPort: 80
+    port: 9001
+  selector: samplefe
+  ingress:
+    tls:
+      - hosts:
+          - 'samplefe.morgot.com'

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samplefe
+spec:
+  replicas: {{ .Values.samplefe.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.samplefe.selector }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.samplefe.selector }}
+    spec:
+      containers:
+      - name: samplefe
+        image: "{{ .Values.samplefe.image.repository }}:{{ .Values.samplefe.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.samplefe.image.container_port }}
