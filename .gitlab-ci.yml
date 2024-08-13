@@ -27,6 +27,8 @@ build:
 
 deploy:
   stage: deploy
+  variables:
+      ENV: 'DEV'
   trigger:
     project: morgot/charts
     branch: main
