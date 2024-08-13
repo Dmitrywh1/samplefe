@@ -4,8 +4,10 @@
     entrypoint: [""]
   script:
     - export KUBECONFIG=$KUBECONFIG
+  dependencies:
+    - build
   tags:
-      - docker
+    - docker
 
 dev:
   stage: deploy
