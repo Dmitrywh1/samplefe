@@ -1,19 +1,41 @@
-deploy_dev:
-  stage: deploy
-  variables:
-    NAMESPACE: dev
+.prepare_helm_dependencies:
   image:
     name: alpine/helm
     entrypoint: [""]
-  before_script:
-    - export KUBECONFIG=$KUBECONFIG
   script:
-      - helm upgrade $CI_PROJECT_NAME charts/$CI_PROJECT_NAME/
-        --debug
-        --install
-        --atomic
-        --values charts/$CI_PROJECT_NAME/dev.yaml
-        --namespace $NAMESPACE
-        --set samplefe.image.tag=1.0.4
+    - export KUBECONFIG=$KUBECONFIG
   tags:
       - docker
+
+dev:
+  stage: deploy
+  variables:
+    NAMESPACE: dev
+  extends: .prepare_helm_dependencies
+  script:
+    - helm upgrade $CI_PROJECT_NAME charts/$CI_PROJECT_NAME/
+      --debug
+      --install
+      --atomic
+      --values charts/$CI_PROJECT_NAME/$NAMESPACE-vaules.yaml
+      --namespace $NAMESPACE
+      --set samplefe.image.tag=1.0.4
+  only:
+    - develop
+
+prod:
+  stage: deploy
+  variables:
+    NAMESPACE: dev
+  extends: .prepare_helm_dependencies
+  script:
+    - helm upgrade $CI_PROJECT_NAME charts/$CI_PROJECT_NAME/
+      --debug
+      --install
+      --atomic
+      --values charts/$CI_PROJECT_NAME/$NAMESPACE-vaules.yaml
+      --namespace $NAMESPACE
+      --set samplefe.image.tag=1.0.4
+  only:
+    - tags
+    - main
