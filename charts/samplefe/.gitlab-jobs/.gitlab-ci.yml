@@ -19,7 +19,7 @@ dev:
       --debug
       --install
       --atomic
-      --values charts/$CI_PROJECT_NAME/$NAMESPACE-vaules.yaml
+      --values charts/$CI_PROJECT_NAME/$NAMESPACE-values.yaml
       --namespace $NAMESPACE
       --set samplefe.image.tag=$tag
   only:
@@ -28,14 +28,14 @@ dev:
 prod:
   stage: deploy
   variables:
-    NAMESPACE: dev
+    NAMESPACE: prod
   extends: .prepare_helm_dependencies
   script:
     - helm upgrade $CI_PROJECT_NAME charts/$CI_PROJECT_NAME/
       --debug
       --install
       --atomic
-      --values charts/$CI_PROJECT_NAME/$NAMESPACE-vaules.yaml
+      --values charts/$CI_PROJECT_NAME/$NAMESPACE-values.yaml
       --namespace $NAMESPACE
       --set samplefe.image.tag=$tag
   only:
