@@ -1,5 +1,5 @@
 deploy_dev:
-  stage: deploy to dev
+  stage: deploy
   image:
     name: alpine/helm
     entrypoint: [""]
