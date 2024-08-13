@@ -1,6 +1,7 @@
 stages:
     - build
     - deploy dev
+    - deploy to dev
 
 image: docker:latest
 
@@ -28,13 +29,16 @@ build:
     tags:
         - docker
 
-deploy-dev:
-    stage: deploy dev
-    variables:
-        ENV: DEV
-    trigger:
-      project: morgot/charts
-      branch: main
-      strategy: depend
+# deploy-dev:
+#     stage: deploy dev
+#     variables:
+#         ENV: DEV
+#     trigger:
+#       project: morgot/charts
+#       branch: main
+#       strategy: depend
     # when: manual
+include:
+  - project: 'morgot/charts'
+    file: '/samplefe/.gitlab-jobs/.gitlab-ci.yml'
     
