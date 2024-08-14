@@ -13,3 +13,9 @@ samplefe:
     tls:
       - hosts:
           - 'samplefe.morgot.com'
+  requests:
+    cpu: 200m
+    memory: 300Mi
+  limits:
+    cpu: 300m
+    memory: 400Mi
