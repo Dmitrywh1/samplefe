@@ -13,6 +13,7 @@ samplefe:
     tls:
       - hosts:
           - 'dev-samplefe.morgot.com'
+    host: samplefe.morgot.com
   requests:
     cpu: 100m
     memory: 200Mi
