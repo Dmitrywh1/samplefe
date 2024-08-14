@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: samplefe.morgotq.com
+    - host: {{ .Values.samplefe.ingress.host }}
       http:
         paths:
           - path: /
