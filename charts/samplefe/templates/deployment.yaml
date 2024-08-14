@@ -4,6 +4,11 @@ metadata:
   name: samplefe
 spec:
   replicas: {{ .Values.samplefe.replicas }}
+  strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: 1   
   selector:
     matchLabels:
       app: {{ .Values.samplefe.selector }}
@@ -19,3 +24,9 @@ spec:
         image: "{{ .Values.samplefe.image.repository }}:{{ .Values.samplefe.image.tag }}"
         ports:
         - containerPort: {{ .Values.samplefe.image.container_port }}
+        requests:
+          memory: {{ .Values.samplefe.requests.memory }}
+          cpu: {{ .Values.samplefe.requests.cpu }}
+        limits:
+          memory: {{ .Values.samplefe.limits.memory }}
+          cpu: {{ .Values.samplefe.limits.cpu }}
